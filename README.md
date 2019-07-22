@@ -4,6 +4,10 @@
      python mnist_cvae.py
      python svhn_cvae.py
      python GTSRB_cvae.py  (there is a preprocessing to generate the data)
+    
+   Combine model to concatenate the classifier and encoder:
+   
+     python model_combine.py -d=mnist
 
 (2) Use craft_adv_cvae.py to attack
 
