@@ -1,15 +1,17 @@
 # VAE-BN
-(1) First train models
+## First train models
    
      python mnist_cvae.py
      python svhn_cvae.py
-     python GTSRB_cvae.py  (there is a preprocessing to generate the data)
+     python GTSRB_cvae.py  
+     
+   >There is a preprocessing to generate the data for GTSRB.
     
    Combine model to concatenate the classifier and encoder:
    
      python model_combine.py -d=mnist
 
-(2) Use craft_adv_cvae.py to attack
+## Use craft_adv_cvae.py to attack
 
      python craft_attack_cvae.py -d=gtsrb -a=fgsm
      
@@ -17,7 +19,7 @@
    
      craft_one_type(sess, model, X_test[:5000], Y_test[:5000], args.dataset, args.attack,args.batch_size)
 
-(3) Reclassification
+## Reclassification
 
    I think I have modified the reclassification.py to inlcude the following line 291
     
