@@ -5,7 +5,7 @@
      svhn_cvae.py
      GTSRB_cvae.py
 
-(2) Use craft_adv_cvae to attack
+(2) Use craft_adv_cvae.py to attack
 
      python craft_attack_cvae.py -d=gtsrb -a=fgsm
      
