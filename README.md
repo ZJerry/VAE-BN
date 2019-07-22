@@ -39,9 +39,4 @@
      Y_adv = Y_adv0[0:1000,:]
      detected = detected0[:,0:1000]
 
-   TODO
-   
-   |             |Attack          |Defense        |
-   |-------------|Have fun?       |Not fun        |
-   |Yes          |V               |  O            |
-   |NO           |O               |  V            |
+# TODO
