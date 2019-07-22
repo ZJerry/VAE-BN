@@ -4,4 +4,8 @@
 (2) Use craft_adv_cvae to attack
 
 (3) Reclassification
-I cannot remember which one to calculate the restored sampels...
+    I think I have modified the reclassification.py to inlcude the following line 291:
+    
+    % if detected[:,i] == 1:
+    
+    SO as to make sure that only successfully detected samples can be used for reclassification.
