@@ -18,6 +18,7 @@
      craft_one_type(sess, model, X_test[:5000], Y_test[:5000], args.dataset, args.attack,args.batch_size)
 
 (3) Reclassification
+
    I think I have modified the reclassification.py to inlcude the following line 291
     
      if detected[:,i] == 1: 
