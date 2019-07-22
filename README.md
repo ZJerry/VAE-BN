@@ -7,9 +7,14 @@
      
    >There is a preprocessing to generate the data for GTSRB.
     
-   Combine model to concatenate the classifier and encoder:
+   Combine model to concatenate the **classifier** and **encoder**:
    
      python model_combine.py -d=mnist
+     
+   We combine two models so as to:
+   
+   - Craft attacks easily
+   - Make a lot of funs
 
 ## Use craft_adv_cvae.py to attack
 
