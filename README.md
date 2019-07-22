@@ -1,9 +1,9 @@
 # VAE-BN
 (1) First train models
    
-     mnist_cvae.py
-     svhn_cvae.py
-     GTSRB_cvae.py
+     python mnist_cvae.py
+     python svhn_cvae.py
+     python GTSRB_cvae.py  (there is a preprocessing to generate the data)
 
 (2) Use craft_adv_cvae.py to attack
 
