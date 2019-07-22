@@ -16,13 +16,13 @@
 (3) Reclassification
    I think I have modified the reclassification.py to inlcude the following line 291
     
-       if detected[:,i] == 1: 
+     if detected[:,i] == 1: 
     
    So as to make sure that only successfully detected samples can be used for reclassification.
    
    Also mention that line 234-237, only 1000 samples have been used in one run.
    
-       X_test_adv = X_test_adv0[0:1000,:,:]
-       Y = Y0[0:1000,:]
-       Y_adv = Y_adv0[0:1000,:]
-       detected = detected0[:,0:1000]
+     X_test_adv = X_test_adv0[0:1000,:,:]
+     Y = Y0[0:1000,:]
+     Y_adv = Y_adv0[0:1000,:]
+     detected = detected0[:,0:1000]
