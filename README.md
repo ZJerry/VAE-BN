@@ -17,10 +17,7 @@
 ## Use craft_adv_cvae.py to attack
 
      python craft_adv_cvae.py -d=gtsrb -a=fgsm
-     
-   Please mention that in line 154-155, I only use the first 5000 samples
    
-     craft_one_type(sess, model, X_test[:5000], Y_test[:5000], args.dataset, args.attack,args.batch_size)
 
 ## Reclassification
 
