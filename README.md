@@ -11,14 +11,12 @@
    
      python model_combine.py -d=mnist
      
-   We combine two models so as to:
-   
-   - Craft attacks easily
-   - Make a lot of funs
+   We combine two models (encoder+classifier) as classifier for subsequent attacks
+
 
 ## Use craft_adv_cvae.py to attack
 
-     python craft_attack_cvae.py -d=gtsrb -a=fgsm
+     python craft_adv_cvae.py -d=gtsrb -a=fgsm
      
    Please mention that in line 154-155, I only use the first 5000 samples
    
