@@ -17,7 +17,7 @@
      python svhn_cvae.py
      python GTSRB_cvae.py  
      
-   >There is a preprocessing to generate the data for GTSRB.
+   >**Note**: There is a preprocessing to generate the data for GTSRB.
     
    Combine model to concatenate the **classifier** and **encoder**:
    
