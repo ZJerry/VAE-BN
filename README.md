@@ -33,7 +33,7 @@
 ## Use Bayesian Network (in Matlab) for adversary detection and diagnosis
 
    One should install the Bayesian network toolbox for Matlab, which have been provided in the repository. 
-   One can refer to https://github.com/bayesnet/bnt for how to use the Bayes Net Toolbox.
+   One can refer to https://github.com/bayesnet/bnt for how to use the toolbox.
    There are two ways to run our code, either use the pretrained models and reproduce the results in the paper, or train the network.
    
 ### Use the pretrained model to reproduce the results
