@@ -6,10 +6,10 @@
      
    The code has been organized in four parts:
    
-   (a) The training of deep models;
-   (b) Craft attacks;
-   (c) Make the Bayesian network to detection and diagnosis;
-   (d) Use the reclassification module to make the reform and reclassificaion.
+   *The training of deep models;
+   *Craft attacks;
+   *Make the Bayesian network to detection and diagnosis;
+   *Use the reclassification module to make the reform and reclassificaion.
    
 ## Train CVAE models
    
