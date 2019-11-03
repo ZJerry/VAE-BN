@@ -1,6 +1,6 @@
 # VAE-BN
 
-   This repository contains the codes for the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network', which has been submitted to IEEE TRANSACTIONS ON INDUSTRIAL INFORMATICS. 
+   This repository contains the codes for the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network', which has been submitted to IEEE Transactions on Indistrial Informatics. 
      
 ## First train CVAE models
    
