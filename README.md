@@ -1,4 +1,7 @@
 # VAE-BN
+
+   This repository contains the codes for the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network'
+     
 ## First train CVAE models
    
      python mnist_cvae.py
