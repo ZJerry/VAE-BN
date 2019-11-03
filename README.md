@@ -73,3 +73,5 @@
    In this repo, the Bayesian network is realized in Matlab to demonstrate our idea, in the long run, we will attempts to write the scripts in the python;
    We will also consider how to improve the reclassfication function to make it much faster.
    
+   * Upload and Download the dataset
+   * 验证attack和reclassification
