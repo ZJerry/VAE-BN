@@ -70,7 +70,7 @@
 
 # TODO
 
-   In this repo, the Bayesian network is realized in Matlab to demonstrate our idea, in the long run, we will attempts to write the scripts in the python;
+   We will attempt to convert the Bayesian network scripts in the python or write a communication module;
    We will also consider how to improve the reclassfication function to make it much faster.
    
    * 攻击后数据保存是否可以直接matlab调用
