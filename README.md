@@ -1,5 +1,5 @@
 # VAE-BN
-[![Travis](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+
 ## Descriptions
 
    This repository contains the codes for reproducing the paper **Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network**, which has been submitted to IEEE Transactions on Indistrial Informatics. 
