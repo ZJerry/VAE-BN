@@ -1,8 +1,17 @@
 # VAE-BN
 
-   This repository contains the codes for the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network', which has been submitted to IEEE Transactions on Indistrial Informatics. 
+## Descriptions
+
+   This repository contains the codes for reproducing the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network', which has been submitted to IEEE Transactions on Indistrial Informatics. 
      
-## First train CVAE models
+   The code has been organized in three parts:
+   
+   > The training of deep models;
+   > Craft attacks;
+   > Make the Bayesian network to detection and diagnosis;
+   > Use the reclassification module to make the reform and reclassificaion.
+   
+## Train CVAE models
    
      python mnist_cvae.py
      python svhn_cvae.py
