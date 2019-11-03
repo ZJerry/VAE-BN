@@ -46,7 +46,7 @@
      
 ### Train a network by yourself
 
-   One can also train a network by simply uncommenting the lines in the scripts, as follows:
+   One can also train a network by simply uncommenting the lines in the above scripts, as follows:
    
      %===> Uncomment the following line for training
      % [bnet2, ll, engine2] = learn_params_em(engine,training,maxiter,epsilon);
