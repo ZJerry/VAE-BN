@@ -4,9 +4,9 @@
 
    This repository contains the codes for reproducing the paper 'Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network', which has been submitted to IEEE Transactions on Indistrial Informatics. 
      
-   The code has been organized in three parts:
+   The code has been organized in four parts:
    
-   (a) The training of deep models;
+   (a) The training of deep models;\n
    (b) Craft attacks;
    (c) Make the Bayesian network to detection and diagnosis;
    (d) Use the reclassification module to make the reform and reclassificaion.
