@@ -36,7 +36,7 @@
    One can refer to https://github.com/bayesnet/bnt for how to use the toolbox.
    There are two ways to run our code, either use the pretrained models and reproduce the results in the paper, or train the network.
    
-      > Note: All the data and Bayesian network models in this work can be downloaded at                          https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD 
+      > Note: All the data and Bayesian network models in this work can be downloaded at https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD 
    
 ### Use the pretrained model to reproduce the results
 
