@@ -42,7 +42,7 @@
    
 ### Use the pretrained model to reproduce the results
 
-   After the install of toolbox, you can directly run the following codes. If you want to reproduce the results, please first download the adversary data.
+   After the install of toolbox, you can directly run the following codes in folder Detection and Diagnosis. If you want to reproduce the results, please first download the adversary data.
    
      BN_MNIST.m
      BN_SVHN.m
