@@ -30,7 +30,7 @@
 
      python craft_adv_cvae.py -d=gtsrb -a=fgsm
    
-## Use Bayesian Network (in Matlab) for adversary detection and diagnosis
+## Use Bayesian Network for adversary detection and diagnosis
 
    One should install the Bayesian network toolbox for Matlab, which have been provided in the following google drive. 
    One can refer to https://github.com/bayesnet/bnt for how to use the toolbox.
