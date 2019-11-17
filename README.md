@@ -58,6 +58,12 @@
    
 ## Reclassification
 
+     python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=False
+     
+   If '-v' is set True, a sample before and after recovery can be visualized by the image saved in the visualization folder. One can select specific image to visualize by changing the index in the line of:
+   
+     if i==10: # select the image 
+
    I think I have modified the reclassification.py to inlcude the following line 291
     
      if detected[:,i] == 1: 
