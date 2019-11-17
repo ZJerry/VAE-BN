@@ -27,7 +27,7 @@
 ## Craft an attack to generate adversarial data
 
      python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
-   This script will also output the adversarial classification accuracy and the average adversarial distortion. (Table I in the paper)
+   The classification accuracy after the attack and the average adversarial distortion will also be outputed by this script. (Table I in the paper)
    
 ## Use Bayesian Network for adversary detection and diagnosis
 
