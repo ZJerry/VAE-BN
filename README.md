@@ -22,8 +22,6 @@
    Combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks:
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
-     
-   %We combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks
 
 
 ## Use craft_adv_cvae.py to attack
