@@ -17,7 +17,7 @@
      python svhn_cvae.py
      python GTSRB_cvae.py  
      
-   >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should go to the folder 'data' and run GTSRB.py first.
+   >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should run GTSRB.py in the forlder 'data' first.
     
    Combine model to concatenate the **classifier** and **encoder**:
    
