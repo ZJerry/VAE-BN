@@ -19,7 +19,7 @@
      
    >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should run GTSRB.py in the folder 'data' first.
     
-   Combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks:
+   Combine two sub-models of CVAE (encoder+classifier) as the classifier for subsequent attacks:
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
 
