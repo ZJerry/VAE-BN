@@ -24,9 +24,9 @@
      python model_combine.py -d=mnist(/svhn/gtsrb)
 
 
-## Use craft_adv_cvae.py to attack
+## Craft an attack to generate adversarial data
 
-     python craft_adv_cvae.py -d=gtsrb -a=fgsm
+     python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
    
 ## Use Bayesian Network for adversary detection and diagnosis
 
