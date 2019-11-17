@@ -19,11 +19,11 @@
      
    >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should run GTSRB.py in the folder 'data' first.
     
-   Combine models to generate the classifier for being attacked and the defense:
+   Combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks:
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
      
-   We combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks
+   %We combine two sub-models of CVAE (encoder+classifier) as classifier for subsequent attacks
 
 
 ## Use craft_adv_cvae.py to attack
