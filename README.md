@@ -21,7 +21,7 @@
     
    Combine model to concatenate the **classifier** and **encoder**:
    
-     python model_combine.py -d=mnist
+     python model_combine.py -d=mnist (/svhn/gtsrb)
      
    We combine two models (encoder+classifier) as classifier for subsequent attacks
 
