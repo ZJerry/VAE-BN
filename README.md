@@ -6,10 +6,10 @@
      
    The code has been organized in four parts:
    
-   * The training of CVAE models
-   * Craft attacks
-   * Make the Bayesian network to detection and diagnosis
-   * Use the reclassification module to make the reform and reclassificaion
+   * The training of CVAE models (In the 'Scripts' folder)
+   * Craft attacks (In the 'Scripts' folder)
+   * Make the Bayesian network to detection and diagnosis (In the 'Detection and Diagnoisis' folder)
+   * Use the reclassification module to make the reform and reclassificaion (In the 'Scripts' folder)
    
 ## Train CVAE models
    
