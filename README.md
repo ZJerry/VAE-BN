@@ -9,7 +9,7 @@
    * The training of CVAE models 
    * Craft attacks 
    * Make the Bayesian network to detection and diagnosis 
-   * Use the reclassification module to make the reform and reclassificaion 
+   * Use the recovery module to make the reform and reclassificaion 
    
 ## Train CVAE models
    To train a CVAE model on specified dataset, one could run the following script in the folder Scripts.
@@ -56,7 +56,7 @@
      %===> or use a pretrained Bayesian network
      % load bnet2_mnist_m2_com
    
-## Reclassification
+## Recovery
 
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=False
      
