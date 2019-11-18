@@ -6,13 +6,13 @@
      
    The code has been organized in four parts:
    
-   * The training of CVAE models (In the 'Scripts' folder)
-   * Craft attacks (In the 'Scripts' folder)
-   * Make the Bayesian network to detection and diagnosis (In the 'Detection and Diagnoisis' folder)
-   * Use the reclassification module to make the reform and reclassificaion (In the 'Scripts' folder)
+   * The training of CVAE models 
+   * Craft attacks 
+   * Make the Bayesian network to detection and diagnosis 
+   * Use the reclassification module to make the reform and reclassificaion 
    
 ## Train CVAE models
-   
+   To train a CVAE model on specified dataset, one could run the following script in the folder Scripts.
      python mnist_cvae.py
      python svhn_cvae.py
      python GTSRB_cvae.py  
@@ -60,7 +60,7 @@
 
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=False
      
-   If '-v' is set True, a sample before and after recovery can be visualized by the image saved in the visualization folder. One can select specific image to visualize by changing the index in the line of:
+   If '-v' is set True, a sample before and after recovery can be visualized by the figure saved in the folder Visualization. One can select specific image to visualize by changing the index in the line of:
    
      if i==10: # select the image 
 
