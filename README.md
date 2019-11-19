@@ -11,7 +11,7 @@
    * Make the Bayesian network to detection and diagnosis 
    * Use the recovery module to make the reform and reclassificaion 
    
-   The pretrained models and data that produce the results presented in the paper are available in https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD (Google Drive).
+   The pretrained models and data that produce the results presented in the paper are available in Google Drive https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD.
    
 ## Train CVAE models
    To train a CVAE model on specified dataset, one could run the following script in the folder 'scripts'.
