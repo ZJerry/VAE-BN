@@ -30,7 +30,7 @@
 
 
 ## Craft an attack to generate adversarial data
-   To foul the trained model, attacks can be implemented by running the following script.
+   To foul the trained model and generate adversarial samples:
 
      python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
      
@@ -68,12 +68,13 @@
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
-   >**Note**: The script supports breakpoint resume from the exsisting 'data/Adv_%d_%a_r.mat' file. As the procedure takes a while for all samples, one can directly download the requried data files we provide to the folder 'data' and get the same restored ACC as in Table III of the paper.
+   >**Note**: The script supports breakpoint resume from the exsisting 'data/Adv_%d_%a_r.mat' file. As the procedure takes a while for all samples, one can directly download the requried data we provide to the folder 'data' and get the same restored ACC as in Table III of the paper.
     
-   One can also visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows by specifying the index of the sample ('-i/--index').
+   One can also visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows: 
      
      python visual_decoded.py -d=gtsrb -a=cw -i=128
    
+   '-i/--index' is the index of the sample to visualize.
 
 # TODO
 
