@@ -60,9 +60,9 @@
 
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=False
      
-   If '-v' is set True, a sample before and after recovery can be visualized by the figure saved in the folder Visualization. One can select specific image to visualize by changing the index in the line of:
+   If '-v/--visual' is set True, an adversarial sample before and after recovery can be visualized. One can select a specific image by specifying its index:
    
-     if i==10: # select the image 
+     python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=True -i=1
 
    I think I have modified the reclassification.py to inlcude the following line 291
     
