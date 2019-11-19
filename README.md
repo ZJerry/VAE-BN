@@ -26,13 +26,14 @@
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
      
-   >**Note**: If you wanna skip the above two steps or reproduce the same results in the paper, please download the models files ending with '.h5' from aforementioned Google Drive address and save them in the folder 'models'.
+   >**Note**: If you want to reproduce the same results in the paper or simply skip the above two steps, please download the models files ending with '.h5' from aforementioned Google Drive and save them in the folder 'models'.
 
 
 ## Craft an attack to generate adversarial data
 
      python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
-   The classification accuracy after the attack and the average adversarial distortion will also be outputed by this script. (Table I in the paper)
+     
+   The classification accuracy after the attack and the average adversarial distortion will be outputed by this script. The generated adversarial data will be saved in the '. ./data/Adv_%dataset_%attack.mat'. One could also directly download the data provided in the Google Drive.
    
 ## Use Bayesian Network for adversary detection and diagnosis
 
