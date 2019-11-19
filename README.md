@@ -30,10 +30,11 @@
 
 
 ## Craft an attack to generate adversarial data
+   To foul the trained model, attacks can be implemented by running the following script.
 
      python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
      
-   The classification accuracy after the attack and the average adversarial distortion will be outputed by this script. The generated adversarial data will be saved in the '. ./data/Adv_%dataset_%attack.mat'. One could also directly download the data provided in the Google Drive.
+   The classification accuracy after the attack and the average adversarial distortion will be outputed by this script. The generated adversarial data will be saved in the '. ./data/Adv_%dataset_%attack.mat'. One could also directly download the data we provide from the Google Drive.
    
 ## Use Bayesian Network for adversary detection and diagnosis
 
