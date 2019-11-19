@@ -57,9 +57,12 @@
      % load bnet2_mnist_m2_com
    
 ## Recovery
-
-     python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=False
+   After the above detection, one can implement the 'recovery' described in our paper (Section II.D) by running the following code in the folder Scripts. Once all samples in the dataset are reformed and reclassified, the restored classification accuracy (similar with Table III) will be outputed and the reformed samples are saved in '../data/Adv_%datasetname_%attackname_r.mat'.
+   
+     python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
+    >**Note**: The procedure takes a while for all samples 
+    
    If '-v/--visual' is set True, an adversarial sample before and after recovery can be visualized. One can select a specific image by specifying its index:
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) -v=True -i=1
