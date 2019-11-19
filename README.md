@@ -57,11 +57,11 @@
      % load bnet2_mnist_m2_com
    
 ## Recovery
-   After the above detection, one can implement the 'recovery' (Section II.D in the paper) by running the following code in the folder Scripts. Once all samples in the dataset are reformed and reclassified, the restored classification accuracy will be outputed and the reformed samples are saved in 'data/Adv_$d_%a_r.mat'.
+   After the above detection, one can implement the 'recovery' (Section II.D in the paper) by running the following code in the folder 'scripts'. Once all samples in the dataset are reformed and reclassified, the restored classification accuracy will be outputed and the reformed samples are saved in 'data/Adv_$d_%a_r.mat'.
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
-    >**Note**: The procedure takes a while for all samples. The script supports breakpoint resume from the exsisting 'data/Adv_$d_%a_r.mat' file. One can directly download our provided models and data files to the folder Data and get the same restored ACC as in Table III of our paper.
+   >**Note**: The procedure takes a while for all samples. The script supports breakpoint resume from the exsisting 'data/Adv_$d_%a_r.mat' file. One can directly download our provided models and data files to the folder 'data' and get the same restored ACC as in Table III of our paper.
     
    If '-v/--visual' is set True, an adversarial sample before and after recovery can be visualized. One can select a specific image by specifying its index:
    
