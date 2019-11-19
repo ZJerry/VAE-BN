@@ -63,7 +63,7 @@
      %===> or use a pretrained Bayesian network
      % load bnet2_mnist_m2_com
    
-## Recovery
+## CVAE-based Recovery
    After the above detection, one can implement the 'recovery' (Section II.D in the paper) by running the following code in the folder 'scripts'. The restored classification accuracy will be outputed and the reformed samples will be saved in 'data/Adv_%d_%a_r.mat'.
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
