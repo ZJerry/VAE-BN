@@ -11,6 +11,8 @@
    * Make the Bayesian network to detection and diagnosis 
    * Use the recovery module to make the reform and reclassificaion 
    
+   The pretrained models and data that produce the results presented in the paper are available in https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD (Google Drive).
+   
 ## Train CVAE models
    To train a CVAE model on specified dataset, one could run the following script in the folder 'scripts'.
    
@@ -23,6 +25,8 @@
    Combine two sub-modules of CVAE (encoder+classifier) as the classifier for subsequent attacks:
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
+     
+   >**Note**: If you wanna skip the above two steps or reproduce the same results in the paper, please download the models files ending with '.h5' from aforementioned Google Drive address and save them in the folder 'models'.
 
 
 ## Craft an attack to generate adversarial data
