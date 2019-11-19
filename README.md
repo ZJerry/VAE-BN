@@ -34,7 +34,7 @@
 
      python craft_adv_cvae.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b)
      
-   The classification accuracy after the attack and the average adversarial distortion will be outputed by this script. The generated adversarial data will be saved in the '. ./data/Adv_%dataset_%attack.mat'. One could also directly download the data we provide from the Google Drive.
+   The classification accuracy after the attack and the average adversarial distortion will be outputed by this script. The generated adversarial data will be saved in the '. . /data/Adv_%dataset_%attack.mat'. One could also directly download the data we provide from the Google Drive.
    
 ## Use Bayesian Network for adversary detection and diagnosis
 
@@ -64,7 +64,7 @@
      % load bnet2_mnist_m2_com
    
 ## CVAE-based Recovery
-   After the above detection, one can implement the 'recovery' (Section II.D in the paper) by running the following code in the folder 'scripts'. The restored classification accuracy will be outputed and the reformed samples will be saved in 'data/Adv_%d_%a_r.mat'.
+   The 'recovery' for detected adversarial samples can be implemented by running the following code in the folder 'scripts'. The restored classification accuracy will be outputed and the reformed samples will be saved in '. . /data/Adv_%d_%a_r.mat'.
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
