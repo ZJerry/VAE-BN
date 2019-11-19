@@ -13,6 +13,7 @@
    
 ## Train CVAE models
    To train a CVAE model on specified dataset, one could run the following script in the folder 'scripts'.
+   
      python mnist_cvae.py
      python svhn_cvae.py
      python GTSRB_cvae.py  
