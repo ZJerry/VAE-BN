@@ -14,19 +14,19 @@
    The pretrained models and data that produce the results presented in the paper are available in Google Drive https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD.
    
 ## Train CVAE models
-   To train a CVAE model on specified dataset, one could run the following script in the folder 'scripts'.
+   To train a CVAE model on specified dataset, one could run the following script in the scripts folder.
    
      python mnist_cvae.py
      python svhn_cvae.py
      python GTSRB_cvae.py  
      
-   >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should run GTSRB.py in the folder 'data' first.
+   >**Note**: There is a preprocessing to generate the data for GTSRB. Before running GTSRB_cvae.py, one should run GTSRB.py in the data folder first.
     
    Combine two sub-modules of CVAE (encoder+classifier) as the classifier for subsequent attacks:
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
      
-   >**Note**: If you want to reproduce the same results in the paper or simply skip the above two steps, please download the models files ending with '.h5' from aforementioned Google Drive and save them in the folder 'models'.
+   >**Note**: If you want to reproduce the same results in the paper or simply skip the above two steps, please download the models files ending with '.h5' from aforementioned Google Drive and save them in the models folder.
 
 
 ## Craft an attack to generate adversarial data
@@ -64,17 +64,16 @@
      % load bnet2_mnist_m2_com
    
 ## CVAE-based Recovery
-   The 'recovery' for detected adversarial samples can be implemented by running the following code in the folder 'scripts'. The restored classification accuracy will be outputed and the reformed samples will be saved in '. . /data/Adv_%d_%a_r.mat'.
+   The 'recovery' for detected adversarial samples can be implemented by running the following code in the scripts folder. The restored classification accuracy will be outputed and the reformed samples will be saved in '. . /data/Adv_%d_%a_r.mat'.
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
    >**Note**: The script supports breakpoint resume from the exsisting 'data/Adv_%d_%a_r.mat' file. As the procedure takes a while for all samples, one can directly download the requried data we provide to the folder 'data' and get the same restored ACC as in Table III of the paper.
     
-   One can also visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows: 
+   By the following script, one can visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows. '-i/--index' is the index of the sample to visualize. It will also ouput the ground-truth label, adversarial prediction and recovered prediction of the specified sample.
      
      python visual_decoded.py -d=gtsrb -a=cw -i=128
    
-   '-i/--index' is the index of the sample to visualize.
 
 # TODO
 
