@@ -14,9 +14,9 @@
    The pretrained models and data that produce the results presented in the paper are available in Google Drive https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD.
    
 ## Requirement
-   Python 2.7
-   Tensorflow 1.14.0
-   Keras 2.2.4
+   ##Python 2.7
+   ##Tensorflow 1.14.0
+   ##Keras 2.2.4
    
 ## Train CVAE models
    To train a CVAE model on specified dataset, one could run the following script in the scripts folder.
