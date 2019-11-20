@@ -1,7 +1,7 @@
 import numpy as np 
 import keras
 from keras.models import load_model,Model
-from keras.utils import to_categorical,plot_model
+from keras.utils import to_categorical
 from keras import backend as K
 from keras.layers import Layer,Input
 import os
@@ -102,7 +102,7 @@ def build_regressor(regressor_model, img_dim, channel_dim):
     r = regressor_model(x)
     regressor = Model(x, r, name='regressor') 
     regressor.summary()
-    plot_model(regressor, to_file='regressor.png', show_shapes=True)
+    # plot_model(regressor, to_file='regressor.png', show_shapes=True)
     re_loss = K.sum(r**2)
     regressor.add_loss(re_loss)
     opt = Adam(lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=1e-08,decay=0.0)
