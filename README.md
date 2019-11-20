@@ -68,7 +68,7 @@
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
      
-   >**Note**: The script supports breakpoint resume from the exsisting 'data/Adv_%d_%a_r.mat' file. As the procedure takes a while for all samples, one can directly download the requried data we provide to the folder 'data' and get the same restored ACC as in Table III of the paper.
+   >**Note**: The script supports breakpoint resume from the exsisting 'data/Adv_%d_%a_r.mat' file. As the procedure takes a while for all samples, one can directly download the pretrained models and the requried data we provide to the folder 'models' and 'data' to get the same restored ACC as in Table III of the paper.
     
    One can visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows. '-i/--index' is the index of the sample to visualize. It will also ouput the ground-truth label, adversarial prediction and recovered prediction of the specified sample.
      
@@ -81,5 +81,3 @@
    We will also consider how to improve the reclassfication function to make it much faster.
    
    * 攻击后数据保存是否可以直接matlab调用
-   * Upload and Download the dataset
-   * 验证attack和reclassification
