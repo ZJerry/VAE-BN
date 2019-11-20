@@ -11,7 +11,10 @@ from keras.layers import Input,Softmax
 import sys
 sys.path.append("..")
 
-from keras.utils import plot_model
+# from keras.utils import plot_model
+
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 def main(args):
     assert args.dataset in ['mnist', 'cifar', 'svhn','gtsrb'], \
@@ -34,7 +37,7 @@ def main(args):
             
     model = Model(input_, y)
     model.summary()
-    plot_model(model, to_file='craft_attack_model_%s.png'% args.dataset, show_shapes=True)
+    # plot_model(model, to_file='craft_attack_model_%s.png'% args.dataset, show_shapes=True)
 
     model.save('../models/%s_cvae_c.h5'% args.dataset)
     print('Model vae saved')
