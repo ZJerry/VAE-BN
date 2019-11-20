@@ -13,11 +13,14 @@ sys.path.append("..")
 import scipy.io as sio
 
 from detect.util import get_data
-from attacks import (fast_gradient_sign_method, basic_iterative_method,
+from detect.attacks import (fast_gradient_sign_method, basic_iterative_method,
                             saliency_map_method,CWL2)
 
 import h5py
 from keras.utils import to_categorical
+
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 # FGSM & BIM attack parameters that were chosen
 ATTACK_PARAMS = {
@@ -81,7 +84,16 @@ def craft_one_type(sess, model, X, Y, dataset, attack, batch_size):
         )
     else:
         # CW attack
-        X_adv = CWL2(sess, model, X, Y,targeted=True, batch_size=batch_size, max_iterations=1000, confidence=0)
+        n_batch = int(np.ceil(float(len(X))/args.cwbatch))
+        for i in range(n_batch):
+            X_adv_tempt = CWL2(sess, model, X[i*args.cwbatch:(i+1)*args.cwbatch], Y[i*args.cwbatch:(i+1)*args.cwbatch],targeted=True, batch_size=batch_size, max_iterations=1000, confidence=0)
+            if i==0:
+                X_adv = X_adv_tempt
+            else:
+                X_adv = np.concatenate((X_adv,X_adv_tempt),0)
+            del X_adv_tempt
+        print('CW attacked completed. Totally {} baches, each with {} samples'.format(i+1,args.cwbatch))
+            
     # _, acc = model.evaluate(X_adv, Y[:len(X_adv)], batch_size=batch_size,
     #                         verbose=0)
     y_p = model.predict(X_adv).argmax(1)
@@ -106,7 +118,7 @@ def craft_one_type(sess, model, X, Y, dataset, attack, batch_size):
     adict['X_encoder'] = X_encoder
     adict['Y'] = Y
     adict['X_adv'] = X_adv
-    adict['X_adv_encoder'] = X_adv_encoder
+    adict['X_adv_encoder'] = X_adv_encoder 
     adict['Y_preds'] = Y_preds
     adict['X_adv_decoder'] = X_adv_decoder
     adict['X_decoder'] = X_decoder
@@ -136,9 +148,10 @@ def main(args):
         with  h5py.File('../data/X_test.h5') as hf: 
             X_test, Y_test_ = hf['imgs'][:], hf['labels'][:]
             print("Loaded images from X_test.h5")
-        # X_test = X_test[:5000] 
-        # Y_test_ = Y_test_[:5000] 
-        Y_test = to_categorical(Y_test_, 43)       
+        Y_test = to_categorical(Y_test_, 43) 
+    #n_end = len(X_test)-len(X_test)%args.batch_size
+    #X_test = X_test[:n_end]      
+    #Y_test = Y_test[:n_end]
     # _, acc = model.evaluate(X_test, Y_test, batch_size=args.batch_size,
     #                         verbose=0)
     y_p = model.predict(X_test).argmax(1)
@@ -151,7 +164,7 @@ def main(args):
                            args.batch_size)
     else:
         # Craft one specific attack type
-        craft_one_type(sess, model, X_test[:5000], Y_test[:5000], args.dataset, args.attack,
+        craft_one_type(sess, model, X_test, Y_test, args.dataset, args.attack,
                        args.batch_size)
     print('Adversarial samples crafted and saved to data/ subfolder.')
     sess.close()
@@ -175,6 +188,12 @@ if __name__ == "__main__":
         help="The batch size to use for training.",
         required=False, type=int
     )
+    parser.add_argument(
+        '-cwb', '--cwbatch',
+        help="The batch size for cw attacking.",
+        required=False, type=int
+    )
     parser.set_defaults(batch_size=250)
+    parser.set_defaults(cwbatch=10000)
     args = parser.parse_args()
     main(args)
