@@ -18,7 +18,7 @@ from keras.layers import Dense, Input, Layer
 from keras.layers import Conv2D, Flatten, Lambda, Dropout, Softmax
 from keras.layers import Reshape, Conv2DTranspose, LeakyReLU
 from keras.models import Model
-from keras.utils import plot_model
+# from keras.utils import plot_model
 from keras import backend as K
 import imageio,os
 from keras.utils import to_categorical
@@ -27,6 +27,9 @@ from matplotlib import pyplot
 import tensorflow as tf
 
 from subprocess import call
+
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 batch_size = 100
 img_dim = 32
@@ -103,7 +106,7 @@ z_log_var = Dense(latent_dim, name='z_log_var')(h) # calculate the log(postp std
 #instantiate the Encoder
 encoder = Model(x, [z_mean,z_log_var], name='encoder') 
 encoder.summary()
-plot_model(encoder, to_file='shvn_cvae_cnn_encoder.png', show_shapes=True)
+# plot_model(encoder, to_file='shvn_cvae_cnn_encoder.png', show_shapes=True)
 
 ###############################################################
 z = Input(shape=(latent_dim,), name='z_sampling')
@@ -140,7 +143,7 @@ for i in range(3):
 # instantiate decoder model
 decoder = Model(z, x_recon, name='decoder')
 decoder.summary()
-plot_model(decoder, to_file='shvn_cvae_cnn_decoder.png', show_shapes=True)
+# plot_model(decoder, to_file='shvn_cvae_cnn_decoder.png', show_shapes=True)
 generator = decoder
 
 ###############################################################
@@ -152,7 +155,7 @@ y = Softmax()(y)
 
 classfier = Model(z, y, name='classifier') # classifier of hidden variable
 classfier.summary()
-plot_model(classfier, to_file='shvn_cvae_cnn_classfier.png', show_shapes=True)
+# plot_model(classfier, to_file='shvn_cvae_cnn_classfier.png', show_shapes=True)
 
 ###############################################################
 y_x = Input(shape=(num_classes,)) # class y_x of input x
@@ -175,7 +178,7 @@ yh_v = class_mean_estimator(y_x)
 # instantiate VAE model
 vae = Model([x,y_x], [x_recon, y, yh_v], name='CVAE')
 vae.summary()
-plot_model(vae, to_file='shvn_cvae_cnn.png', show_shapes=True)
+# plot_model(vae, to_file='shvn_cvae_cnn.png', show_shapes=True)
 
 
 # define loss
@@ -219,17 +222,18 @@ history = vae.fit([x_train,y_train],
 	
 # list all data in history
 print(history.history.keys())
-# plot metrics
-pyplot.plot(history.history['loss'])
-pyplot.plot(history.history['val_loss'])
-# pyplot.plot(history.history[xent_loss])
-# pyplot.plot(history.history[kl_loss])
-# pyplot.plot(history.history[crossentropy_loss])
-pyplot.title('model loss')
-pyplot.ylabel('loss')
-pyplot.xlabel('epoch')
-# plt.legend(['train', 'test'], loc='upper left')
-pyplot.show()
+#if not using server, please uncomment lines below to visualize loss plot
+# # plot metrics
+# pyplot.plot(history.history['loss'])
+# pyplot.plot(history.history['val_loss'])
+# # pyplot.plot(history.history[xent_loss])
+# # pyplot.plot(history.history[kl_loss])
+# # pyplot.plot(history.history[crossentropy_loss])
+# pyplot.title('model loss')
+# pyplot.ylabel('loss')
+# pyplot.xlabel('epoch')
+# # plt.legend(['train', 'test'], loc='upper left')
+# pyplot.show()
 
 
 means = class_mean_estimator.predict(to_categorical(range(num_classes), num_classes))
@@ -255,18 +259,18 @@ adict2['x_test_recon'] = x_test_recon
 sio.savemat('../data/Encoded_SVHN.mat',adict2)
 
 #save trained model
-if not os.path.exists('models'):
-    os.mkdir('models')
+if not os.path.exists('../models'):
+    os.makedirs('../models')
 
-encoder.save('models/svhn_cvae_encoder.h5')
+encoder.save('../models/svhn_cvae_encoder.h5')
 print('Model encoder saved')
-class_mean_estimator.save('models/svhn_cvae_class_mean_estimator.h5')
+class_mean_estimator.save('../models/svhn_cvae_class_mean_estimator.h5')
 print('Model class_mean_estimator saved')
-decoder.save('models/svhn_cvae_decoder.h5')
+decoder.save('../models/svhn_cvae_decoder.h5')
 print('Model decoder saved')
-classfier.save('models/svhn_cvae_classfier.h5')
+classfier.save('../models/svhn_cvae_classfier.h5')
 print('Model classfier saved')
-vae.save('models/svhn_cvae.h5')
+vae.save('../models/svhn_cvae.h5')
 print('Model vae saved')
 
 def class_sample(path, category=0):
@@ -316,6 +320,3 @@ print ('train acc: %s' % (right / len(y_train_)))
 right = 0.
 right = (y_test_pred==y_test_).sum().astype(float)
 print ('test acc: %s' % (right / len(y_test_)))
-
-
-
