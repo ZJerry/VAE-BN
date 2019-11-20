@@ -5,6 +5,7 @@ from keras.utils import to_categorical,plot_model
 from keras import backend as K
 from keras.layers import Layer,Input
 import os
+from os.path import isfile
 import argparse
 import scipy.io as sio
 import sys
@@ -17,14 +18,19 @@ import tensorflow as tf
 
 import matplotlib.pyplot as plt
 
+import time
+
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
 def import_model(args):
-    assert args.dataset in ['mnist', 'cifar', 'svhn','gtsrb'], \
-        "Dataset parameter must be either 'mnist', 'cifar', 'gtsrb' or 'svhn'"
+    assert args.dataset in ['mnist', 'svhn','gtsrb'], \
+        "Dataset parameter must be either 'mnist', 'gtsrb' or 'svhn'"
     assert os.path.isfile('../models/%s_cvae_decoder.h5'% args.dataset), \
         'model file not found...'
     assert os.path.isfile('../models/%s_cvae_class_mean_estimator.h5'% args.dataset), \
         'model file not found...'
-    if args.dataset == 'mnist' or args.dataset == 'cifar' or args.dataset == 'svhn':
+    if args.dataset == 'mnist' or args.dataset == 'svhn':
         num_classes = 10
     elif args.dataset == 'gtsrb':
         num_classes = 43
@@ -41,8 +47,8 @@ def import_model(args):
     return decoder, means
 
 def import_classifier(args):
-    assert args.dataset in ['mnist', 'cifar', 'svhn','gtsrb'], \
-        "Dataset parameter must be either 'mnist', 'cifar', 'gtsrb' or 'svhn'"
+    assert args.dataset in ['mnist', 'svhn','gtsrb'], \
+        "Dataset parameter must be either 'mnist', 'gtsrb' or 'svhn'"
     assert os.path.isfile('../models/%s_cvae_classifier.h5'% args.dataset), \
         'model file not found...'
     # load the cvae classifier model
@@ -53,8 +59,8 @@ def import_classifier(args):
     return classifier
 
 def import_encoder(args):
-    assert args.dataset in ['mnist', 'cifar', 'svhn','gtsrb'], \
-        "Dataset parameter must be either 'mnist', 'cifar', 'gtsrb' or 'svhn'"
+    assert args.dataset in ['mnist', 'svhn','gtsrb'], \
+        "Dataset parameter must be either 'mnist', 'gtsrb' or 'svhn'"
     assert os.path.isfile('../models/%s_cvae_encoder.h5'% args.dataset), \
         'model file not found...'
     # load the cvae classifier model
@@ -91,7 +97,7 @@ class Regressor_z(Layer):
 
 def build_regressor(regressor_model, img_dim, channel_dim):
     x = Input(shape=(img_dim, img_dim, channel_dim))
-    print (x.shape)
+    #print (x.shape)
     #r=x
     r = regressor_model(x)
     regressor = Model(x, r, name='regressor') 
@@ -103,10 +109,10 @@ def build_regressor(regressor_model, img_dim, channel_dim):
     regressor.compile(optimizer=opt)
     return regressor
 
-def regressor_fit(regressor,input_x,epochs=50):
+def regressor_fit(args,regressor,input_x,epochs=50):
     #input should be in shape of img_dim,img_dim,channel_num
     input_x = K.expand_dims(input_x,0)
-    print(input_x.shape)
+    #print(input_x.shape)
     checkpointer = keras.callbacks.ModelCheckpoint(
                 filepath = './models/checkpoints/checkpoint.h5', 
                 monitor='val_loss', 
@@ -130,17 +136,19 @@ def regressor_fit(regressor,input_x,epochs=50):
     history = regressor.fit(input_x,
                 epochs=epochs,
                 #batch_size=1,
+                verbose=0,                      #if u wanna display progress bar then uncomment this line
                 steps_per_epoch=1
                 #callbacks=[checkpointer, lrate]
                 )
 
     # list all data in history
-    print(history.history.keys())
-    pyplot.plot(history.history['loss'])
-    pyplot.title('model loss')
-    pyplot.ylabel('loss')
-    pyplot.xlabel('epoch')
-    # pyplot.show()
+    #print(history.history.keys())
+    # if args.visual:
+    #     pyplot.plot(history.history['loss'])
+    #     pyplot.title('model loss')
+    #     pyplot.ylabel('loss')
+    #     pyplot.xlabel('epoch')
+    #     pyplot.show()
 
     return regressor.layers[-1].z_star,history.history['loss'][-1]
 
@@ -184,7 +192,7 @@ def visualize_x_adv_reg(X,X_adv,X_adv_reg,X_reg):
     X_adv_reg = X_adv_reg.squeeze()
     X_reg = X_reg.squeeze()
 
-    plt.figure(figsize=(12, 4))
+    plt.figure(figsize=(8, 4))
     # plt.suptitle('X,X_adv,X_adv_decoded, X_reg')
 
     plt.subplot(1,4,1),plt.title('Original')
@@ -209,7 +217,7 @@ def cal_acc(y_list):
     return acc
      
 def main(args):
-    if args.dataset == 'mnist' or args.dataset == 'cifar':
+    if args.dataset == 'mnist':
         num_classes = 10
         latent_dim = 20
     elif args.dataset == 'svhn':
@@ -222,25 +230,32 @@ def main(args):
     assert os.path.isfile('../data/Adv_%s_%s.mat' %
                           (args.dataset, args.attack)), \
         'adversarial sample file not found... must first craft adversarial ' \
-        'samples using craft_adv_samples.py'
+        'samples using craft_adv_cave.py'
+    assert os.path.isfile('../data/Adv_%s_%s_all.mat' %
+                          (args.dataset, args.attack)), \
+        'adversarial sample file not found... must first craft adversarial ' \
+        'samples using craft_adv_cave.py'
 
     # Load adversarial samples
     data = sio.loadmat('../data/Adv_%s_%s.mat' % (args.dataset, args.attack))
-    data_det = sio.loadmat('../data/det_%s_%s.mat' % (args.dataset, args.attack))
-    X_test_adv0 =  data['X_adv']
-    Y0 = data['Y']
-    Y_adv0 = data['Y_preds']
-    detected0 = data_det['detected']
-    X_test_adv = X_test_adv0[0:1000,:,:]
-    Y = Y0[0:1000,:]
-    Y_adv = Y_adv0[0:1000,:]
-    detected = detected0[:,0:1000]
-    # print(len(X_test_adv))
-    # X_test_adv_1=X_test_adv[1000000000000000000]
+    data_det = sio.loadmat('../data/det_%s_%s_all.mat' % (args.dataset, args.attack))
+
     X_test =  data['X']
+    X_test_adv =  data['X_adv']
+    Y = data['Y']
+    Y_adv = data['Y_preds']
+    detected = data_det['detected']
+
+    if args.cover_exsisting==False:
+        exsisting_mat_name = '../data/Adv_'+args.dataset+'_'+args.attack+'_r.mat'
+        if isfile(exsisting_mat_name):
+            data_t = sio.loadmat(exsisting_mat_name)
+            starting_idx = len(data_t['X_regr'])
+        else:
+            starting_idx = 0
+    ###
     img_dim,channel_dim = X_test_adv.shape[-2:]
-    img_num = X_test_adv.shape[0]
-    #print(img_dim,channel_dim )
+    img_num = min(X_test_adv.shape[0],detected.shape[1])
 
     decoder, means = import_model(args)
     classifier = import_classifier(args)
@@ -251,72 +266,107 @@ def main(args):
 
     sess = K.get_session()
     y_list=[]
-    for i in range(len(X_test_adv)):
-        # if i ==0 or i ==100:
-        if i<img_num:    
-            print('The %d image processing'%i)
-        # if i>-1:
-            input_x = X_test_adv[i]
-            if args.zeros_start == True:
-                regressor.layers[-1].reinitial_to_zeros()
-                # regressor.layers[-1].reinitial(means[0][np.newaxis,:])
-                z_star,_ = regressor_fit(regressor,input_x,epochs=1000)
-            else:
-                loss_f = 10000
-                for j in range(len(means)):
-                    regressor.layers[-1].reinitial(means[j][np.newaxis,:])
-                    z_star_t,loss_t = regressor_fit(regressor,input_x,epochs=1000)
-                    if loss_t < loss_f:
-                        z_star = z_star_t
 
-            #restore the regressed z_star
-            z_star1 = sess.run(z_star)
-            if i == 0:
-                z_regr = z_star1
-            else:
-                z_regr = np.concatenate([z_regr,z_star1],0)
-
-            #reclassification
-            y_reg = reclassification(z_star1,means)
-
-            y_reg1 = reclassification1(z_star,classifier)
-            y_reg1 = sess.run(y_reg1)[0]
-
-            y_reg2 = reclassification2(z_star,encoder,decoder,classifier)
-            y_reg2 = sess.run(y_reg2)[0]
-
-            y_reg3 = reclassification3(z_star,encoder,decoder,classifier)
-            y_reg3 = sess.run(y_reg3)[0]
-            
-            if detected[:,i] == 1:
-               y_list.append([y_reg,y_reg1,y_reg2,y_reg3, Y[i].argmax(0),Y_adv[i].argmax(0)])
-        else:
+    idx_batch_t = 0
+    for i in range(img_num):
+        if i < starting_idx:
             continue
+        print('=> The {} of {} images is under processing'.format(i+1,img_num))
+        start = time.time()
+        input_x = X_test_adv[i]
+        if args.zeros_start == True:
+            regressor.layers[-1].reinitial_to_zeros()
+            # regressor.layers[-1].reinitial(means[0][np.newaxis,:])
+            z_star,_ = regressor_fit(args,regressor,input_x,epochs=1000)
+        else:
+            loss_f = 10000
+            for j in range(len(means)):
+                regressor.layers[-1].reinitial(means[j][np.newaxis,:])
+                z_star_t,loss_t = regressor_fit(args,regressor,input_x,epochs=1000)
+                if loss_t < loss_f:
+                    z_star = z_star_t
 
-        if i==10: # select the image
-            X_reg = decoder(z_star)[0]
-            X_reg = sess.run(X_reg)
+        #restore the regressed z_star
+        z_star1 = sess.run(z_star)
+        if i%args.batch_size == 0:
+            z_regr = z_star1
+            y_list=[]
+        else:
+            z_regr = np.concatenate([z_regr,z_star1],0)
 
-            input_x=tf.convert_to_tensor(input_x[np.newaxis,:])
-            X_adv_h,_ = encoder(input_x)
-            X_adv_reg = decoder(X_adv_h)[0]
-            X_adv_reg = sess.run(X_adv_reg)
+        #reclassification
+        y_reg = reclassification(z_star1,means)
 
-            #if args.dataset == 'svhn' or args.dataset == 'gtsrb' or args.dataset == 'cw':
-            visualize_x_adv_reg(X_test[i],X_test_adv[i],X_adv_reg,X_reg)
-            print (np.sum((X_test[i]-X_test_adv[i]).reshape(-1)**2,0))
-            print (np.sum((X_test[i]-X_reg).reshape(-1)**2,0))
-            print (np.sum((X_test_adv[i]-X_reg).reshape(-1)**2,0))
+        y_reg1 = reclassification1(z_star,classifier)
+        y_reg1 = sess.run(y_reg1)[0]
 
-    print(np.array(y_list))
-    # acc = cal_acc2(np.array(y_list),detected)
-    acc = cal_acc(np.array(y_list))
-    print("acc of each reclassification method is  %s"%(acc))   
-    pyplot.show()
+        y_reg2 = reclassification2(z_star,encoder,decoder,classifier)
+        y_reg2 = sess.run(y_reg2)[0]
 
-    data['X_regr'] = z_regr
-    sio.savemat('../data/Adv_%s.mat'%(args.attack),data)
+        y_reg3 = reclassification3(z_star,encoder,decoder,classifier)
+        y_reg3 = sess.run(y_reg3)[0]
+        
+        if detected[:,i] == 1:
+            y_list.append([y_reg,y_reg1,y_reg2,y_reg3, Y[i].argmax(0),Y_adv[i].argmax(0)])
+        end = time.time()
+        print('time cost of this iter is:{}'.format(str(end-start)))
+
+        if (i+1)%args.batch_size == 0 or i+1 == img_num:
+            if i//args.batch_size ==0:
+                data['X_regr'] = z_regr
+                y_list = np.array(y_list)
+                data['y_list'] = y_list
+                sio.savemat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack),data)
+                print('{} batch of regressed hidden_variables added to mat file and saved to data/ subfolder.'.format(i//args.batch_size+1)) 
+                del data
+            else:     
+                data = sio.loadmat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack))
+                z_regr_t = data['X_regr']
+                y_list_t = data['y_list']
+                z_regr = np.concatenate([z_regr_t,z_regr],0)
+                y_list = np.concatenate([y_list_t,np.array(y_list)],0)
+                data['X_regr'] = z_regr
+                data['y_list'] = y_list
+                sio.savemat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack),data)
+                print('{} batch of regressed hidden_variables added to mat file and saved to data/ subfolder.'.format(i//args.batch_size+1)) 
+                del z_regr_t,y_list_t,data,z_regr, y_list            
+
+    if args.visual==True:
+        input_x = X_test_adv[args.index]
+        if args.zeros_start == True:
+            regressor.layers[-1].reinitial_to_zeros()
+            # regressor.layers[-1].reinitial(means[0][np.newaxis,:])
+            z_star,_ = regressor_fit(args,regressor,input_x,epochs=1000)
+        else:
+            loss_f = 10000
+            for j in range(len(means)):
+                regressor.layers[-1].reinitial(means[j][np.newaxis,:])
+                z_star_t,loss_t = regressor_fit(args,regressor,input_x,epochs=1000)
+                if loss_t < loss_f:
+                    z_star = z_star_t
+
+        X_reg = decoder(z_star)[0]
+        X_reg = sess.run(X_reg)
+
+        input_x=tf.convert_to_tensor(input_x[np.newaxis,:])
+        input_x = tf.cast(input_x, 'float32')
+        X_adv_h,_ = encoder(input_x)
+        X_adv_reg = decoder(X_adv_h)[0]
+        X_adv_reg = sess.run(X_adv_reg)
+
+        #if args.dataset == 'svhn' or args.dataset == 'gtsrb' or args.dataset == 'cw':
+        visualize_x_adv_reg(X_test[args.index],X_test_adv[args.index],X_adv_reg,X_reg)
+        print (np.sum((X_test[args.index]-X_test_adv[args.index]).reshape(-1)**2,0))
+        print (np.sum((X_test[args.index]-X_reg).reshape(-1)**2,0))
+        print (np.sum((X_test_adv[args.index]-X_reg).reshape(-1)**2,0))
+
     print('regressed hidden_variables added to mat file and saved to data/ subfolder.')
+    # acc = cal_acc2(np.array(y_list),detected)
+    y_list = sio.loadmat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack))['y_list']
+    print(len(y_list))
+    acc = cal_acc(y_list)
+    print("acc of each reclassification method is  %s"%(acc))   
+    #pyplot.show()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -336,9 +386,28 @@ if __name__ == "__main__":
         help="initial z_star to each class center or zeros",
         required=False, type=bool
     )
-    parser.set_defaults(dataset='mnist')
-    parser.set_defaults(attack='cw')
+    parser.add_argument(
+        '-b', '--batch_size',
+        help="batch size of operating",
+        required=False, type=int
+    )
+    parser.add_argument(
+        '-v', '--visual',
+        help="visualizaiton of specific sample and tarining plot",
+        required=False, type=bool
+    )
+    parser.add_argument(
+        '-i', '--index',
+        help="the index of the sample user wanna visualize",
+        required=False, type=int
+    )
+    parser.add_argument('-c','--cover_exsisting', action='store_true', help='set true if u wanna cover existing mat file and redo the experiment')
+    parser.set_defaults(dataset='gtsrb')
+    parser.set_defaults(attack='fgsm')
     parser.set_defaults(zeros_start=True)
+    parser.set_defaults(batch_size=500)
+    parser.set_defaults(visual=False)
+    parser.set_defaults(index=0)
     args = parser.parse_args()
     main(args)
 
