@@ -160,9 +160,9 @@ y = Dense(intermediate_dim, activation='relu')(z)
 y = Dense(num_classes)(y)
 y = Softmax()(y)
 
-classfier = Model(z, y, name='classifier') # classifier of hidden variable
-classfier.summary()
-# plot_model(classfier, to_file='gtsrb_cvae_cnn_classfier.png', show_shapes=True)
+classifier = Model(z, y, name='classifier') # classifier of hidden variable
+classifier.summary()
+# plot_model(classifier, to_file='gtsrb_cvae_cnn_classifier.png', show_shapes=True)
 
 ###############################################################
 y_x = Input(shape=(num_classes,)) # class y_x of input x
@@ -179,7 +179,7 @@ def sampling(args):
 z_mean_v,z_log_var_v = encoder(x)
 z = Lambda(sampling, output_shape=(latent_dim,))([z_mean_v, z_log_var_v])
 x_recon = decoder(z)
-y = classfier(z)
+y = classifier(z)
 yh_v = class_mean_estimator(y_x)
 
 # instantiate VAE model
@@ -252,9 +252,9 @@ print(history.history.keys())
 
 means = class_mean_estimator.predict(to_categorical(range(num_classes), num_classes))
 x_train_encoded,_ = encoder.predict(x_train)
-y_train_pred = classfier.predict(x_train_encoded).argmax(axis=1)
+y_train_pred = classifier.predict(x_train_encoded).argmax(axis=1)
 x_test_encoded,_ = encoder.predict(x_test)
-y_test_pred = classfier.predict(x_test_encoded).argmax(axis=1)
+y_test_pred = classifier.predict(x_test_encoded).argmax(axis=1)
 x_train_recon = decoder.predict(x_train_encoded)
 x_test_recon = decoder.predict(x_test_encoded)
 
@@ -282,8 +282,8 @@ class_mean_estimator.save('../models/gtsrb_cvae_class_mean_estimator.h5')
 print('Model class_mean_estimator saved')
 decoder.save('../models/gtsrb_cvae_decoder.h5')
 print('Model decoder saved')
-classfier.save('../models/gtsrb_cvae_classfier.h5')
-print('Model classfier saved')
+classifier.save('../models/gtsrb_cvae_classifier.h5')
+print('Model classifier saved')
 vae.save('../models/gtsrb_cvae.h5')
 print('Model vae saved')
 
