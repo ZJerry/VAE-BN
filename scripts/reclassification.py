@@ -1,7 +1,7 @@
 import numpy as np 
 import keras
 from keras.models import load_model,Model
-from keras.utils import to_categorical,plot_model
+from keras.utils import to_categorical
 from keras import backend as K
 from keras.layers import Layer,Input
 import os
@@ -102,7 +102,7 @@ def build_regressor(regressor_model, img_dim, channel_dim):
     r = regressor_model(x)
     regressor = Model(x, r, name='regressor') 
     regressor.summary()
-    plot_model(regressor, to_file='regressor.png', show_shapes=True)
+    # plot_model(regressor, to_file='regressor.png', show_shapes=True)
     re_loss = K.sum(r**2)
     regressor.add_loss(re_loss)
     opt = Adam(lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=1e-08,decay=0.0)
@@ -231,9 +231,9 @@ def main(args):
                           (args.dataset, args.attack)), \
         'adversarial sample file not found... must first craft adversarial ' \
         'samples using craft_adv_cave.py'
-    assert os.path.isfile('../data/Adv_%s_%s_all.mat' %
+    assert os.path.isfile('../data/det_%s_%s_all.mat' %
                           (args.dataset, args.attack)), \
-        'adversarial sample file not found... must first craft adversarial ' \
+        'detected label file not found... must implement detection first ' \
         'samples using craft_adv_cave.py'
 
     # Load adversarial samples
@@ -244,6 +244,7 @@ def main(args):
     X_test_adv =  data['X_adv']
     Y = data['Y']
     Y_adv = data['Y_preds']
+    print(data_det.keys())
     detected = data_det['detected']
 
     if args.cover_exsisting==False:
@@ -363,9 +364,15 @@ def main(args):
     print('regressed hidden_variables added to mat file and saved to data/ subfolder.')
     # acc = cal_acc2(np.array(y_list),detected)
     y_list = sio.loadmat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack))['y_list']
-    print(len(y_list))
+    print("%s adversarial samples are detected and recovered"%(len(y_list)))
     acc = cal_acc(y_list)
-    print("acc of each reclassification method is  %s"%(acc))   
+    print("ACC of each strategy is:")
+    print("ACC_null(w/o recvoery): %s"%(acc[5]))
+    print("ACC_R0: %s"%(acc[0]))
+    print("ACC_R1: %s"%(acc[1]))
+    print("ACC_R2: %s"%(acc[2]))
+    print("ACC_R3: %s"%(acc[3]))
+    # print("acc of each reclassification method is  %s"%(acc))   
     #pyplot.show()
 
 if __name__ == "__main__":
