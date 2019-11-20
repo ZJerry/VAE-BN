@@ -162,7 +162,7 @@ y_x = Input(shape=(num_classes,)) # class y_x of input x
 yh = Dense(latent_dim)(y_x) # mean of class
 class_mean_estimator = Model(y_x, yh, name='class_mean_estimator')
 class_mean_estimator.summary()
-plot_model(class_mean_estimator, to_file='shvn_cvae_class_mean_estimator.png', show_shapes=True)
+#plot_model(class_mean_estimator, to_file='shvn_cvae_class_mean_estimator.png', show_shapes=True)
 ###############################################################
 def sampling(args):
     z_mean, z_log_var = args
