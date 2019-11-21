@@ -77,9 +77,5 @@
      python visual_decoded.py -d=gtsrb -a=cw -i=128
    
 
-# TODO
-
-   We will attempt to convert the Bayesian network scripts in the python or write a middleware between the two modules;
-   We will also consider how to improve the reclassfication function to make it much faster.
-   
-   * 攻击后数据保存是否可以直接matlab调用
+# Contact
+If you have any questions, please feel free to contact us at peng0086@e.ntu.edu.sg
