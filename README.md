@@ -44,6 +44,8 @@
    
   **Note**: All the data, Bayesian net toolbox and Bayesian network models used in this work can be downloaded at https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD 
   
+  **Note**: Please install the Bayesian net toolbox provided in our Google Drive, as we have modified several files in the toolbox.
+  
   **Note**: After downloading, please save the *.mat files into the data folder.
    
 ### Use the pretrained model to reproduce the results
