@@ -78,4 +78,4 @@
    
 
 # Contact
-If you have any questions, please feel free to contact us at peng0086 AT e.ntu.edu.sg
+If you have any questions, please feel free to contact us at peng0086@e.ntu.edu.sg
