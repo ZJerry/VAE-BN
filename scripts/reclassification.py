@@ -366,12 +366,10 @@ def main(args):
     y_list = sio.loadmat('../data/Adv_%s_%s_r.mat'%(args.dataset,args.attack))['y_list']
     print("%s adversarial samples are detected and recovered"%(len(y_list)))
     acc = cal_acc(y_list)
-    print("ACC of each strategy is:")
-    print("ACC_null(w/o recvoery): %s"%(acc[5]))
-    print("ACC_R0: %s"%(acc[0]))
-    print("ACC_R1: %s"%(acc[1]))
-    print("ACC_R2: %s"%(acc[2]))
-    print("ACC_R3: %s"%(acc[3]))
+    print("Reclassification Acc withouth recvoery: %s"%(acc[5]))
+    print("Reclassification Acc with recovery strategy A: %s"%(acc[0]))
+    print("Reclassification Acc with recovery strategy B(Reformer): %s"%(acc[1]))
+    print("Reclassification Acc with recovery strategy C(Reformer+Decoder+Encoder): %s"%(acc[2]))
     # print("acc of each reclassification method is  %s"%(acc))   
     #pyplot.show()
 
