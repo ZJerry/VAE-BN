@@ -370,6 +370,7 @@ def main(args):
     print("Reclassification Acc with recovery strategy A: %s"%(acc[0]))
     print("Reclassification Acc with recovery strategy B(Reformer): %s"%(acc[1]))
     print("Reclassification Acc with recovery strategy C(Reformer+Decoder+Encoder): %s"%(acc[2]))
+    #print("ACC_R3: %s"%(acc[3]))
     # print("acc of each reclassification method is  %s"%(acc))   
     #pyplot.show()
 
@@ -415,4 +416,3 @@ if __name__ == "__main__":
     parser.set_defaults(index=0)
     args = parser.parse_args()
     main(args)
-
