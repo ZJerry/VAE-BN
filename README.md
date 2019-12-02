@@ -51,7 +51,7 @@ https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
    
   **Note**: All the data, Bayesian net toolbox and Bayesian network models used in this work can be downloaded at https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD 
   
-  **Note**: Please install the Bayesian net toolbox provided in our Google Drive, as we have modified several files in the toolbox.
+  **Note**: Please use the Bayesian net toolbox provided in our Google Drive, as we have modified several files in the toolbox.
   
   **Note**: For manual downloading, please save the *.mat files into the data folder.
    
@@ -81,7 +81,7 @@ https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
     
    One can visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows. '-i/--index' is the index of the sample to visualize. It will also ouput the ground-truth label, adversarial prediction and recovered prediction of the specified sample.
      
-     python visual_decoded.py -d=gtsrb -a=cw -i=128
+     python visual_decoded.py -d=mnist -a=cw -i=997
    
 
 # Contact
