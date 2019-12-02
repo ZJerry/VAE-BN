@@ -126,10 +126,9 @@ def main(args):
     classifier = import_classifier(args)
     encoder = import_encoder(args)
 
-    print("Data set %s under %s attack:" % (args.dataset, args.attack))
-
     ##### pretrained model test acc
     if args.part.lower()=='a':
+        print("CVAE model trained on Data set %s" % (args.dataset))
         x_test_encoded,_ = encoder.predict(X_test)
         y_test_pred = classifier.predict(x_test_encoded).argmax(axis=1)
         acc = float((y_test_pred == Y[:len(X_test)].argmax(1)).sum())/len(y_test_pred)
@@ -137,6 +136,7 @@ def main(args):
 
     ##### Adversarial Acc on the test set
     if args.part.lower()=='b':
+        print("Data set %s under %s attack:" % (args.dataset, args.attack))
         acc = float((Y_adv.argmax(1) == Y[:len(X_test_adv)].argmax(1)).sum())/len(Y_adv)
         print("   Classification Acc on the adversarial test set: %0.2f%%" % (100*acc))
  
@@ -148,6 +148,7 @@ def main(args):
         print("   Comprehensive detection rate on the adversarials: %0.2f%%" % (100*acc))
 
     if args.part.lower()=='d':
+        print("Data set %s under %s attack:" % (args.dataset, args.attack))
         acc = cal_acc(Y_r)
         print("   ** %s adversarial samples are detected and recovered **"%(len(Y_r)))
         print("   Reclassification Acc without recovery: %0.2f%%"%(100*acc[5]))
@@ -200,4 +201,3 @@ if __name__ == "__main__":
     parser.set_defaults(part='overall')
     args = parser.parse_args()
     main(args)
-
