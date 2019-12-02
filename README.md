@@ -13,7 +13,9 @@
    
    The pretrained models and data that produce the results presented in the paper are available in Google Drive https://drive.google.com/drive/folders/17_ZCNZZpBbiGawmBt3nal3lSFACOtZVD.
 https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
+
    One can simply run the following shell scripts to automatically download related models and data from the Google Drive to the specified path, which could avoid the manually download.
+   
      bash Pretrained_mnist.sh
      bash Pretrained_svhn.sh
      bash Pretrained_gtsrb.sh  
