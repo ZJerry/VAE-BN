@@ -33,7 +33,7 @@ https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
    
      python model_combine.py -d=mnist(/svhn/gtsrb)
      
-   >**Note**: If you want to reproduce the same results in the paper or simply skip the above two steps, please download the models files ending with '.h5' from aforementioned Google Drive and save them in the models folder.
+   >**Note**: If you want to reproduce the same results in the paper or simply skip the above two steps, please download the models files ending with '.h5' from the Google Drive to the models folder by running the aforementioned shell script.
 
 
 ## Craft an attack to generate adversarial data
