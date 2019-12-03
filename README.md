@@ -11,7 +11,7 @@
       pip install -r requirenement.txt
 
 
-## Descriptions
+## Getting started
    The code has been organized in four parts:
    
    * The training of CVAE models 
