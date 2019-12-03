@@ -1,5 +1,9 @@
 # VAE-BN
 
+## Dependencies
+
+* Python2.7
+
 ## Descriptions
 
    This repository contains the codes for reproducing the paper **Dual-Domain based Adversarial Defense with Conditional VAE and Bayesian Network**, which has been submitted to IEEE Transactions on Indistrial Informatics. 
