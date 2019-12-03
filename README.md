@@ -14,7 +14,7 @@
 ## Getting started
    The code has been organized in four parts:
    
-   * The training of CVAE models 
+   * Train CVAE models 
    * Craft attacks 
    * Make the Bayesian network to detection and diagnosis 
    * Use the recovery module to make the reform and reclassificaion 
@@ -80,7 +80,7 @@ https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
      %===> or use a pretrained Bayesian network
      % load bnet2_mnist_m2_com
    
-## CVAE-based Recovery
+## Recovery and reclassification
    The 'recovery' for detected adversarial samples can be implemented by running the following code in the scripts folder. The restored classification accuracy will be outputed and the reformed samples will be saved in '. . /data/Adv_%d_%a_r.mat'.
    
      python reclassification.py -d=mnist(/svhn/gtsrb) -a=fgsm(/cw/bim-a/bim-b) 
