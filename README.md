@@ -6,13 +6,12 @@
 
    * Python2.7
 
-   The required libraries are listed in the 'requirenment.txt' and one can simply intall them by running
+   Other required libraries can be simply intalled by running
 
       pip install -r requirenement.txt
 
 
-## Getting started
-
+## Descriptions
    The code has been organized in four parts:
    
    * The training of CVAE models 
