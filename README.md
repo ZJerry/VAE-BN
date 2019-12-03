@@ -90,6 +90,12 @@ https://drive.google.com/drive/folders/143I5UdaC9B1AMP1-u23NV9Rz_Nne-HkP.
    One can visualize the original, adversarial, decoded (adversarial) and rcovered representations of a specified sample as Fig.7 in the paper shows. '-i/--index' is the index of the sample to visualize. It will also ouput the ground-truth label, adversarial prediction and recovered prediction of the specified sample.
      
      python visual_decoded.py -d=mnist -a=cw -i=997
+     
+## Overall test
+
+   After loading pretrained models and data or redoing all steps above, one can run the following script to obtain a overall evaluation of the attack and the defense.
+   
+     python pretrained_test.py -d=mnist -a=cw -p=overall
    
 
 # Contact
